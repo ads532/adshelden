@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Basketball">
+  <defs>
+    <clipPath id="ball"><circle cx="50" cy="50" r="47"/></clipPath>
+  </defs>
+  <g clip-path="url(#ball)">
+    <rect x="0"  y="0"  width="50" height="50" fill="#E84436"/>
+    <rect x="50" y="0"  width="50" height="50" fill="#FBBC0C"/>
+    <rect x="0"  y="50" width="50" height="50" fill="#577DBE"/>
+    <rect x="50" y="50" width="50" height="50" fill="#32A853"/>
+  </g>
+  <g fill="none" stroke="#16243D" stroke-width="5" stroke-linecap="round">
+    <circle cx="50" cy="50" r="47"/>
+    <line x1="50" y1="3" x2="50" y2="97"/>
+    <line x1="3" y1="50" x2="97" y2="50"/>
+    <path d="M50 3 Q16 50 50 97"/>
+    <path d="M50 3 Q84 50 50 97"/>
+  </g>
+</svg>

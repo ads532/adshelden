@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adshelden Club – Planbar Kundenanfragen über Google Ads</title>
+<meta name="description" content="Im Adshelden Club baust du in 12 Wochen deinen eigenen Google-Ads-Fahrplan – begleitet von einem ehemaligen Google-Mitarbeiter, der über 5 Mio. € Werbebudget pro Jahr verantwortet.">
+<meta name="theme-color" content="#16243D">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+
+<!-- ============================================================
+     TODO VOR LIVEGANG
+     1) Buchungs-Link: alle CTAs zeigen auf #termin. Der finale
+        Button in #termin zeigt auf BOOKING_URL – dort deine echte
+        Calendly/Cal.com-URL eintragen.
+     2) Testimonials: als PLATZHALTER markiert (gelbes Label).
+        Durch echte Zitate ersetzen und Label entfernen.
+     3) Über mich: 1–2 persönliche Sätze im gelben Kasten ergänzen.
+     4) Google-Partner-Badge: aktuell aus Markenfarben nachgebaut.
+        Bei Bedarf offizielles Badge aus deinem Google-Partners-
+        Konto in /brand_assets ablegen – dann tausche ich es.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=Oswald:wght@600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink:   { DEFAULT:'#16243D', 2:'#1F3050', 3:'#2A3D61' },
+        teal:  { 300:'#7FD0D6', 400:'#4EC0C8', DEFAULT:'#00B1B7', 600:'#049aa0', 700:'#0b7f84' },
+        gold:  { DEFAULT:'#FBBC0C', 600:'#DCAF2C' },
+        coral: { DEFAULT:'#E84436' },
+        grass: { DEFAULT:'#32A853' },
+        royal: { DEFAULT:'#577DBE' },
+        sky:   { DEFAULT:'#B4C7E7' },
+        blush: { DEFAULT:'#F6B7B0' },
+        mint:  { DEFAULT:'#A6D3B8' },
+        paper: { DEFAULT:'#F6F8F9', 2:'#EEF3F4' },
+        muted: { DEFAULT:'#5D6B7F' }
+      },
+      fontFamily: {
+        body:   ['Inter','system-ui','sans-serif'],
+        head:   ['"Plus Jakarta Sans"','Inter','sans-serif'],
+        kicker: ['Oswald','Impact','sans-serif'],
+        accent: ['Fraunces','Georgia','serif'],
+        sig:    ['Caveat','cursive']
+      },
+      maxWidth: { shell: '1180px' }
+    }
+  }
+}
+</script>
+
+<style>
+  :root{
+    --shadow-sm: 0 1px 2px rgba(22,36,61,.05), 0 2px 10px -2px rgba(22,36,61,.07);
+    --shadow-md: 0 2px 4px rgba(22,36,61,.04), 0 16px 36px -14px rgba(22,36,61,.18);
+    --shadow-lg: 0 4px 10px rgba(22,36,61,.05), 0 30px 64px -22px rgba(22,36,61,.26);
+    --shadow-teal: 0 10px 26px -10px rgba(0,177,183,.55);
+    --shadow-teal-hi: 0 16px 38px -12px rgba(0,177,183,.66);
+    --line: rgba(22,36,61,.10);
+  }
+
+  html{ scroll-behavior:smooth; scroll-padding-top:84px; }
+  body{ font-family:'Inter',system-ui,sans-serif; color:#16243D; background:#F6F8F9; -webkit-font-smoothing:antialiased; line-height:1.7; }
+  ::selection{ background:#00B1B7; color:#fff; }
+
+  h1,h2,h3,h4{ font-family:'Plus Jakarta Sans',Inter,sans-serif; line-height:1.1; letter-spacing:-.03em; }
+  .h-lead{ letter-spacing:-.035em; }
+
+  /* Editorial-Akzent statt Schreibschrift */
+  .accent{ font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:600; letter-spacing:-.01em; }
+  .sig{ font-family:'Caveat',cursive; font-weight:600; letter-spacing:.01em; }
+
+  img{ max-width:100%; height:auto; }
+  .imgwrap img{ height:100%; }
+  .text-balance{ text-wrap:balance; }
+
+  /* ---------- Textur & Verläufe ---------- */
+  .noise::before{
+    content:''; position:absolute; inset:0; pointer-events:none; opacity:.35;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  .noise-light::before{ mix-blend-mode:overlay; opacity:.22; }
+
+  .hero-bg{
+    background-color:#F6F8F9;
+    background-image:
+      radial-gradient(1100px 620px at 80% -8%,  rgba(0,177,183,.20), transparent 62%),
+      radial-gradient(760px 520px at 4% 4%,      rgba(180,199,231,.32), transparent 60%),
+      radial-gradient(680px 480px at 94% 82%,    rgba(251,188,12,.16),  transparent 62%),
+      radial-gradient(900px 700px at 38% 112%,   rgba(246,183,176,.16), transparent 60%);
+  }
+  .ink-bg{
+    background-color:#16243D;
+    background-image:
+      radial-gradient(900px 520px at 12% 0%,  rgba(0,177,183,.26), transparent 60%),
+      radial-gradient(760px 520px at 92% 88%, rgba(251,188,12,.12), transparent 58%);
+  }
+  .cta-bg{
+    background-color:#16243D;
+    background-image:
+      radial-gradient(760px 460px at 50% -20%, rgba(0,177,183,.38), transparent 62%),
+      radial-gradient(620px 420px at 88% 110%, rgba(251,188,12,.16), transparent 60%);
+  }
+
+  /* Foto dezent im Hero-Hintergrund (ersetzt Fadenkreuz) */
+  .hero-photo{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .hero-photo img{
+    position:absolute; right:-4%; top:0; height:100%; width:64%; object-fit:cover; object-position:60% 32%;
+    opacity:.09; filter:grayscale(.25) contrast(1.02);
+    -webkit-mask-image:linear-gradient(to left, #000 6%, transparent 82%);
+            mask-image:linear-gradient(to left, #000 6%, transparent 82%);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+    font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; letter-spacing:-.01em;
+    border-radius:14px; text-align:center; line-height:1.2;
+    transition: transform .28s cubic-bezier(.22,1.2,.36,1), box-shadow .28s cubic-bezier(.22,1.2,.36,1), background-color .2s ease, color .2s ease, border-color .2s ease;
+    will-change:transform;
+  }
+  .btn:focus-visible{ outline:3px solid #16243D; outline-offset:3px; }
+  .btn-primary{ background:#00B1B7; color:#fff; padding:1rem 1.6rem; font-size:1rem; box-shadow:var(--shadow-teal); }
+  .btn-primary:hover{ background:#049aa0; transform:translateY(-3px); box-shadow:var(--shadow-teal-hi); }
+  .btn-primary:active{ transform:translateY(-1px); }
+  .btn-primary.lg{ padding:1.15rem 2.1rem; font-size:1.0625rem; }
+
+  .btn-outline{
+    background:transparent; color:#0b7f84; padding:1rem 1.55rem; font-size:1rem;
+    border:1.5px solid rgba(0,177,183,.45); box-shadow:var(--shadow-sm);
+  }
+  .btn-outline:hover{ background:rgba(0,177,183,.08); border-color:#00B1B7; transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .btn-outline:active{ transform:translateY(-1px); }
+  .btn-outline.lg{ padding:1.15rem 2.05rem; }
+
+  .btn-ghost{
+    background:rgba(255,255,255,.9); color:#16243D; padding:.72rem 1.15rem; font-size:.9375rem;
+    border:1px solid var(--line); box-shadow:var(--shadow-sm);
+  }
+  .btn-ghost:hover{ background:#fff; transform:translateY(-2px); box-shadow:var(--shadow-md); }
+  .btn-ghost:active{ transform:translateY(0); }
+
+  .btn-on-dark{ background:#fff; color:#16243D; padding:1.15rem 2.1rem; font-size:1.0625rem; box-shadow:0 14px 34px -14px rgba(0,0,0,.6); }
+  .btn-on-dark:hover{ transform:translateY(-3px); box-shadow:0 22px 46px -16px rgba(0,0,0,.7); }
+  .btn-on-dark:active{ transform:translateY(-1px); }
+  .btn-on-dark:focus-visible{ outline-color:#00B1B7; }
+
+  /* ---------- Karten & Flächen ---------- */
+  .card{ background:#fff; border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow-sm);
+    transition: transform .34s cubic-bezier(.22,1.2,.36,1), box-shadow .34s cubic-bezier(.22,1.2,.36,1), border-color .24s ease; }
+  .card-hover:hover{ transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:rgba(0,177,183,.40); }
+
+  .card-dark{ background:linear-gradient(158deg,#1F3050 0%,#16243D 62%); border:1px solid rgba(255,255,255,.09); border-radius:20px;
+    box-shadow:0 24px 50px -26px rgba(0,0,0,.75);
+    transition: transform .34s cubic-bezier(.22,1.2,.36,1), box-shadow .34s cubic-bezier(.22,1.2,.36,1), border-color .24s ease; }
+  .card-dark:hover{ transform:translateY(-5px); border-color:rgba(0,177,183,.5); box-shadow:0 30px 62px -26px rgba(0,0,0,.85); }
+
+  .imgwrap{ position:relative; overflow:hidden; border-radius:16px; background:#16243D; }
+  .imgwrap img{ display:block; width:100%; object-fit:cover; }
+  .imgwrap::after{ content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to top, rgba(22,36,61,.42), rgba(22,36,61,0) 58%); }
+  .imgwrap .tint{ position:absolute; inset:0; pointer-events:none; mix-blend-mode:multiply;
+    background:linear-gradient(135deg, rgba(0,177,183,.22), rgba(180,199,231,.12) 55%, rgba(251,188,12,.10)); }
+
+  /* ---------- Kicker / Labels ---------- */
+  .kicker{ font-family:'Oswald',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.14em; font-size:.8125rem; line-height:1; }
+  .kicker-bar{ display:inline-flex; align-items:center; gap:.7rem; }
+  .kicker-bar::before{ content:''; width:26px; height:3px; border-radius:2px; background:currentColor; opacity:.9; }
+
+  .chip{ display:inline-flex; align-items:center; gap:.5rem; border-radius:999px; padding:.44rem .9rem; font-size:.8125rem; font-weight:600;
+    background:rgba(255,255,255,.86); border:1px solid var(--line); color:#16243D; box-shadow:var(--shadow-sm); }
+
+  /* Google-Partner-Badge (aus Markenfarben nachgebaut) */
+  .gp-badge{ display:inline-flex; align-items:center; gap:.55rem; border-radius:999px; padding:.42rem .8rem .42rem .62rem;
+    background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-sm); font-size:.8125rem; font-weight:600; color:#16243D; }
+  .gp-dots{ display:inline-flex; gap:3px; }
+  .gp-dots i{ width:7px; height:7px; border-radius:999px; display:block; }
+
+  .step-num{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:.9rem; letter-spacing:0;
+    display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:12px; color:#fff; background:#00B1B7;
+    box-shadow:0 6px 14px -6px rgba(0,177,183,.8); }
+
+  .ph-tag{ display:inline-flex; align-items:center; gap:.38rem; font-size:.6875rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:#8A6A05; background:rgba(251,188,12,.20); border:1px solid rgba(251,188,12,.5); border-radius:999px; padding:.22rem .6rem; }
+
+  /* ---------- FAQ ---------- */
+  details.faq{ border-bottom:1px solid var(--line); }
+  details.faq summary{ list-style:none; cursor:pointer; display:flex; align-items:flex-start; justify-content:space-between; gap:1.5rem;
+    padding:1.35rem .25rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-.015em; line-height:1.45; color:#16243D; transition:color .2s ease; }
+  details.faq summary::-webkit-details-marker{ display:none; }
+  details.faq summary:hover{ color:#0b7f84; }
+  details.faq summary:focus-visible{ outline:3px solid #00B1B7; outline-offset:2px; border-radius:8px; }
+  .faq-ico{ flex:0 0 auto; width:30px; height:30px; border-radius:9px; margin-top:.1rem; background:rgba(0,177,183,.13); color:#0b7f84;
+    display:flex; align-items:center; justify-content:center; transition:transform .3s cubic-bezier(.22,1.2,.36,1), background-color .2s ease; }
+  details.faq[open] .faq-ico{ transform:rotate(45deg); background:rgba(0,177,183,.24); }
+  details.faq .faq-body{ padding:0 3rem 1.5rem .25rem; color:#5D6B7F; }
+  details.faq[open] .faq-body{ animation:faqIn .34s cubic-bezier(.22,1.2,.36,1) both; }
+  @keyframes faqIn{ from{ opacity:0; transform:translateY(-6px);} to{ opacity:1; transform:none;} }
+
+  /* ---------- Reveal ---------- */
+  .rv{ opacity:0; transform:translateY(20px); }
+  .rv.is-in{ opacity:1; transform:none; transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+
+  /* ---------- Header ---------- */
+  .site-header{ transition: background-color .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .site-header.scrolled{ background:rgba(246,248,249,.86); backdrop-filter:blur(14px) saturate(150%); -webkit-backdrop-filter:blur(14px) saturate(150%);
+    border-bottom-color:var(--line); box-shadow:0 8px 26px -22px rgba(22,36,61,.7); }
+  .navlink{ position:relative; font-size:.9375rem; font-weight:500; color:#3E4C63; padding:.4rem 0; transition:color .2s ease; }
+  .navlink::after{ content:''; position:absolute; left:0; right:0; bottom:-2px; height:2px; border-radius:2px; background:#00B1B7; transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.22,1.2,.36,1); }
+  .navlink:hover{ color:#16243D; }
+  .navlink:hover::after{ transform:scaleX(1); }
+  .navlink:focus-visible{ outline:3px solid #00B1B7; outline-offset:4px; border-radius:6px; }
+
+  #mobilenav{ transition: opacity .28s ease, transform .28s cubic-bezier(.22,1.2,.36,1); }
+  #mobilenav[hidden]{ display:none; }
+  #mobilenav.closing{ opacity:0; transform:translateY(-8px); }
+
+  .sticky-cta{ transition: transform .35s cubic-bezier(.22,1.2,.36,1), opacity .35s ease; }
+  .sticky-cta.hidden-down{ transform:translateY(120%); opacity:0; pointer-events:none; }
+
+  .link-u{ text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; transition:color .2s ease; }
+  .link-u:hover{ color:#00B1B7; }
+  .link-u:focus-visible{ outline:2px solid #00B1B7; outline-offset:3px; border-radius:4px; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+    .rv{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+
+<body class="font-body antialiased">
+
+<a href="#hero" class="sr-only focus:not-sr-only focus:fixed focus:z-[100] focus:top-3 focus:left-3 focus:bg-white focus:text-ink focus:px-4 focus:py-2 focus:rounded-xl focus:shadow-lg focus:font-semibold">Zum Inhalt springen</a>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header id="header" class="site-header fixed top-0 inset-x-0 z-50 border-b border-transparent">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8">
+    <div class="flex items-center justify-between h-[72px]">
+
+      <a href="#hero" class="flex items-center shrink-0 rounded-xl focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-teal focus-visible:outline-offset-4" aria-label="Adshelden Club – Startseite">
+        <img src="assets/logo.svg" alt="Adshelden Club" class="h-[30px] sm:h-[34px] w-auto" width="146" height="34">
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Hauptnavigation">
+        <a href="#fuer-wen"   class="navlink">Für wen</a>
+        <a href="#inhalte"    class="navlink">So funktioniert's</a>
+        <a href="#ergebnisse" class="navlink">Ergebnisse</a>
+        <a href="#werte"      class="navlink">Werte</a>
+        <a href="#ueber-mich" class="navlink">Über mich</a>
+        <a href="#faq"        class="navlink">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="#termin" class="btn btn-primary !py-2.5 !px-4 !text-[.9rem] hidden sm:inline-flex">Erstgespräch buchen</a>
+        <button id="menubtn" type="button"
+          class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl border border-[var(--line)] bg-white/90 text-ink shadow-[var(--shadow-sm)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-teal focus-visible:outline-offset-2"
+          aria-expanded="false" aria-controls="mobilenav" aria-label="Menü öffnen">
+          <svg id="ico-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          <svg id="ico-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" hidden><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobilenav" hidden class="lg:hidden border-t border-[var(--line)] bg-paper/95 backdrop-blur-xl">
+    <nav class="max-w-shell mx-auto px-5 sm:px-7 py-5 flex flex-col gap-1" aria-label="Mobile Navigation">
+      <a href="#fuer-wen"   class="py-2.5 font-semibold text-ink rounded-lg">Für wen</a>
+      <a href="#inhalte"    class="py-2.5 font-semibold text-ink rounded-lg">So funktioniert's</a>
+      <a href="#ergebnisse" class="py-2.5 font-semibold text-ink rounded-lg">Ergebnisse</a>
+      <a href="#werte"      class="py-2.5 font-semibold text-ink rounded-lg">Werte</a>
+      <a href="#ueber-mich" class="py-2.5 font-semibold text-ink rounded-lg">Über mich</a>
+      <a href="#faq"        class="py-2.5 font-semibold text-ink rounded-lg">FAQ</a>
+      <a href="#termin" class="btn btn-primary mt-3 w-full">Kostenloses Erstgespräch buchen</a>
+    </nav>
+  </div>
+</header>
+
+
+<!-- ══════════════ 1 · HERO ══════════════ -->
+<section id="hero" class="hero-bg noise noise-light relative overflow-hidden pt-[104px] pb-16 sm:pb-20 lg:pt-[128px] lg:pb-28">
+
+  <div class="hero-photo" aria-hidden="true">
+    <img src="assets/header-bg.jpg" alt="">
+  </div>
+
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8 relative">
+
+    <div class="rv text-center max-w-3xl mx-auto flex flex-wrap justify-center gap-2.5">
+      <span class="chip"><span class="w-2 h-2 rounded-full bg-teal" aria-hidden="true"></span>Für Selbstständige &amp; kleine Unternehmen</span>
+      <span class="gp-badge"><span class="gp-dots"><i style="background:#577DBE"></i><i style="background:#E84436"></i><i style="background:#FBBC0C"></i><i style="background:#32A853"></i></span>Google Partner</span>
+    </div>
+
+    <h1 class="rv h-lead mt-6 text-center text-[2.1rem] leading-[1.08] sm:text-[2.9rem] lg:text-[3.6rem] font-extrabold text-ink max-w-4xl mx-auto text-balance">
+      Gewinne <span class="accent text-teal-700">planbar</span> qualifizierte Kundenanfragen über Google&nbsp;Ads.
+    </h1>
+
+    <p class="rv mt-5 text-center text-[1.0625rem] sm:text-lg text-muted max-w-2xl mx-auto">
+      Ohne Werbebudget zu verbrennen. Ohne Abhängigkeit von Agenturen. Im Adshelden Club baust du in
+      <strong class="text-ink font-semibold">12 Wochen</strong> deinen eigenen Google-Ads-Fahrplan – begleitet von jemandem,
+      der als ehemaliger Google-Mitarbeiter heute über <strong class="text-ink font-semibold">5&nbsp;Mio.&nbsp;€ Werbebudget</strong> im Jahr verantwortet.
+    </p>
+
+    <div class="mt-12 lg:mt-14 grid lg:grid-cols-[1.05fr,1fr] gap-6 lg:gap-8 items-stretch">
+
+      <div class="rv imgwrap min-h-[300px] sm:min-h-[380px] lg:min-h-[460px] shadow-[var(--shadow-lg)]">
+        <img src="assets/hero-spin.jpg" alt="Christoph Pössnicker mit einem Basketball in Google-Farben" class="!h-full" width="1100" height="1100" style="object-position:center 22%">
+        <span class="tint" aria-hidden="true"></span>
+        <div class="absolute left-4 bottom-4 right-4 flex flex-wrap items-center gap-2">
+          <span class="chip !bg-white/95"><svg width="13" height="13" viewBox="0 0 24 24" fill="#00B1B7" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>Ex-Google-Mitarbeiter</span>
+          <span class="chip !bg-white/95">5&nbsp;Mio.&nbsp;€ Budget/Jahr</span>
+        </div>
+      </div>
+
+      <div class="rv card p-6 sm:p-8 flex flex-col justify-center">
+        <ul class="space-y-6">
+          <li class="flex gap-4">
+            <span class="mt-0.5 shrink-0 w-7 h-7 rounded-lg bg-teal/10 text-teal-700 flex items-center justify-center" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div><p class="font-head font-bold text-ink text-[1.0625rem] leading-snug">Du arbeitest mit System, nicht mit Bauchgefühl.</p>
+              <p class="mt-1.5 text-[.9375rem] text-muted">Statt dich durch endlose Tutorials zu klicken, folgst du einem erprobten Fahrplan, der genau auf dein Business abgestimmt ist.</p></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="mt-0.5 shrink-0 w-7 h-7 rounded-lg bg-teal/10 text-teal-700 flex items-center justify-center" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div><p class="font-head font-bold text-ink text-[1.0625rem] leading-snug">Du sparst Zeit und Werbebudget.</p>
+              <p class="mt-1.5 text-[.9375rem] text-muted">Du vermeidest die teuren Anfängerfehler, die die meisten erst nach Monaten – und tausenden Euro – bemerken.</p></div>
+          </li>
+          <li class="flex gap-4">
+            <span class="mt-0.5 shrink-0 w-7 h-7 rounded-lg bg-teal/10 text-teal-700 flex items-center justify-center" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div><p class="font-head font-bold text-ink text-[1.0625rem] leading-snug">Du bist mit deinen Fragen nie allein.</p>
+              <p class="mt-1.5 text-[.9375rem] text-muted">Direkter WhatsApp- &amp; Voice-Support plus wöchentliche Strategietalks mit Christoph – du bleibst nie stecken.</p></div>
+          </li>
+        </ul>
+
+        <div class="mt-8 pt-7 border-t border-[var(--line)]">
+          <a href="#termin" class="btn btn-primary lg w-full">Jetzt kostenloses Erstgespräch buchen
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="mt-3 text-center text-[.8125rem] text-muted">100&nbsp;% kostenfrei &amp; unverbindlich · 30 Minuten · kein Verkaufsdruck</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 2 · FÜR WEN ══════════════ -->
+<section id="fuer-wen" class="relative py-20 sm:py-24 lg:py-28 bg-white">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8">
+
+    <div class="rv text-center max-w-2xl mx-auto">
+      <p class="kicker kicker-bar text-teal-700 justify-center">Warm up</p>
+      <h2 class="mt-5 text-[1.85rem] sm:text-[2.35rem] lg:text-[2.7rem] font-extrabold text-ink text-balance">
+        Für wen ist der <span class="accent text-teal-700">Adshelden&nbsp;Club</span> geeignet?
+      </h2>
+      <p class="mt-4 text-muted text-[1.0625rem]">Wenn du weißt, dass online Kunden zu gewinnen sind – dir bei Google Ads aber noch Klarheit, Struktur und Sicherheit fehlen – dann bist du hier genau richtig.</p>
+    </div>
+
+    <div class="mt-12 lg:mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+      <article class="rv card card-hover p-7 lg:p-8">
+        <span class="inline-flex w-12 h-12 rounded-2xl items-center justify-center bg-sky/40 text-ink" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/><circle cx="12" cy="12" r="3.4"/></svg></span>
+        <h3 class="mt-5 text-xl font-extrabold text-ink">Einsteiger</h3>
+        <p class="mt-3 text-[.9375rem] text-muted">Du willst Google Ads von Grund auf verstehen und deine erste Kampagne aufsetzen, die wirklich Anfragen bringt – ohne dich in Fachbegriffen und Einstellungen zu verlieren.</p>
+      </article>
+      <article class="rv card card-hover p-7 lg:p-8">
+        <span class="inline-flex w-12 h-12 rounded-2xl items-center justify-center bg-blush/45 text-ink" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></svg></span>
+        <h3 class="mt-5 text-xl font-extrabold text-ink">Selbstständige &amp; Freelancer</h3>
+        <p class="mt-3 text-[.9375rem] text-muted">Du hast schon Anzeigen geschaltet, aber die Ergebnisse schwanken oder bleiben aus. Du willst endlich einen verlässlichen, planbaren Kanal für Kundenanfragen statt Zufallstreffer.</p>
+      </article>
+      <article class="rv card card-hover p-7 lg:p-8 sm:col-span-2 lg:col-span-1">
+        <span class="inline-flex w-12 h-12 rounded-2xl items-center justify-center bg-mint/50 text-ink" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M10 21v-6h4v6"/></svg></span>
+        <h3 class="mt-5 text-xl font-extrabold text-ink">Kleine Unternehmen</h3>
+        <p class="mt-3 text-[.9375rem] text-muted">Du willst nicht länger von Empfehlungen oder teuren Agenturen abhängig sein, sondern die Kontrolle über deine Kundengewinnung selbst in die Hand nehmen.</p>
+      </article>
+    </div>
+
+    <div class="rv mt-10 lg:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+      <a href="#termin" class="btn btn-primary lg w-full sm:w-auto">Jetzt Erstgespräch buchen</a>
+      <a href="magazin.html" class="btn btn-outline lg w-full sm:w-auto">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg>
+        Kostenloses Magazin sichern
+      </a>
+    </div>
+    <p class="rv mt-3 text-center text-[.8125rem] text-muted">Lieber erst reinschnuppern? Hol dir das kostenlose Google-Ads-Magazin – ganz ohne Termin.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════ 3 · SO FUNKTIONIERT'S ══════════════ -->
+<section id="inhalte" class="relative py-20 sm:py-24 lg:py-28 bg-paper">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8">
+
+    <div class="rv text-center max-w-2xl mx-auto">
+      <p class="kicker kicker-bar text-coral justify-center">Das Spiel</p>
+      <h2 class="mt-5 text-[1.85rem] sm:text-[2.35rem] lg:text-[2.7rem] font-extrabold text-ink text-balance">Das erwartet dich im Adshelden Club</h2>
+      <p class="mt-4 text-muted text-[1.0625rem]">Kein weiterer Videokurs, den du allein durchklickst. Du bekommst einen klaren Fahrplan, erprobte Vorlagen und persönliche Begleitung – damit du ins Umsetzen kommst und echte Ergebnisse siehst.</p>
+    </div>
+
+    <div class="mt-12 lg:mt-14 grid md:grid-cols-2 gap-5 lg:gap-6">
+      <article class="rv card card-hover overflow-hidden">
+        <div class="p-7 lg:p-8">
+          <h3 class="text-xl lg:text-[1.4rem] font-extrabold text-ink">Google Ads verständlich erklärt</h3>
+          <p class="mt-3 text-[.9375rem] text-muted">Kampagnenstruktur, Keywords, Anzeigen und Tracking – so einfach heruntergebrochen, dass du alles direkt in deinem eigenen Account umsetzen kannst. Auch ohne technisches Vorwissen.</p>
+        </div>
+        <div class="imgwrap !rounded-none aspect-[16/11]">
+          <img src="assets/laptop-ball.jpg" alt="Christoph erklärt Google Ads mit Laptop und Basketball" loading="lazy" width="900" height="620" style="object-position:center 25%">
+          <span class="tint" aria-hidden="true"></span>
+        </div>
+      </article>
+      <article class="rv card card-hover overflow-hidden">
+        <div class="p-7 lg:p-8">
+          <h3 class="text-xl lg:text-[1.4rem] font-extrabold text-ink">Ein erprobter Fahrplan aus der Praxis</h3>
+          <p class="mt-3 text-[.9375rem] text-muted">Du arbeitest mit genau der Struktur, mit der eine Agentur über 5 Mio. € Werbebudget im Jahr steuert – heruntergebrochen auf einen klaren Schritt-für-Schritt-Plan für dein Business.</p>
+        </div>
+        <div class="imgwrap !rounded-none aspect-[16/11]">
+          <img src="assets/fahrplan.jpg" alt="Christoph mit Basketball, entspannt im Büro" loading="lazy" width="900" height="620" style="object-position:center 20%">
+          <span class="tint" aria-hidden="true"></span>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-5 lg:mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+      <article class="rv card card-hover p-7 lg:p-8">
+        <span class="inline-flex w-12 h-12 rounded-2xl items-center justify-center bg-teal/10 text-teal-700" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/><rect x="8" y="8" width="8" height="8" rx="1.5"/></svg></span>
+        <h3 class="mt-5 text-lg font-extrabold text-ink">Vorlagen, Frameworks &amp; Tools</h3>
+        <p class="mt-2.5 text-[.9375rem] text-muted">Kampagnen-Strukturen, Setup-Sheets, Keyword-Frameworks, Anzeigen-Vorlagen, GPT-Tools für performante Anzeigen und Optimierungs-Checklisten – alles, was du zum Umsetzen brauchst und auch nach der Zusammenarbeit behältst.</p>
+      </article>
+      <article class="rv card card-hover p-7 lg:p-8">
+        <span class="inline-flex w-12 h-12 rounded-2xl items-center justify-center bg-coral/10 text-coral" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h8M8 14h5"/><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6.5A8 8 0 1 1 21 12Z"/></svg></span>
+        <h3 class="mt-5 text-lg font-extrabold text-ink">Wöchentliche Strategietalks &amp; direkter Support</h3>
+        <p class="mt-2.5 text-[.9375rem] text-muted">Fester Termin pro Woche (90 Min.), um Fortschritt zu besprechen und Blockaden zu lösen – plus direkter WhatsApp- &amp; Voice-Support von Montag bis Freitag. So reagierst du schnell und bleibst nie stecken.</p>
+      </article>
+      <article class="rv card card-hover p-7 lg:p-8 sm:col-span-2 lg:col-span-1">
+        <span class="inline-flex w-12 h-12 rounded-2xl items-center justify-center bg-grass/12 text-grass" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span>
+        <h3 class="mt-5 text-lg font-extrabold text-ink">Klare Zieldefinition &amp; Ergebnis-Fokus</h3>
+        <p class="mt-2.5 text-[.9375rem] text-muted">Wir definieren dein Ziel glasklar inklusive Messkriterien – damit du genau weißt, worauf du hinarbeitest und woran du erkennst, dass dein Setup funktioniert.</p>
+      </article>
+    </div>
+
+    <!-- 3 Phasen -->
+    <div class="rv mt-12 lg:mt-14 card p-7 sm:p-9 lg:p-10">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+        <h3 class="text-xl lg:text-[1.5rem] font-extrabold text-ink">So läuft dein Spielzug – in drei Phasen</h3>
+        <p class="text-[.875rem] text-muted sm:text-right shrink-0">Bewusst einfach gehalten.</p>
+      </div>
+      <ol class="mt-8 grid md:grid-cols-3 gap-7 md:gap-6">
+        <li class="relative md:pr-6 md:border-r md:border-[var(--line)]">
+          <div class="flex items-center gap-3">
+            <span class="step-num">01</span>
+            <p class="font-head font-extrabold text-ink text-[1.0625rem] tracking-[-.01em]">Klarheit</p>
+          </div>
+          <p class="mt-3.5 text-[.9375rem] text-muted">Wir definieren glasklar, welche Kunden du gewinnen willst und welche Keywords wirklich Anfragen bringen. Dann bauen wir deine Kampagnenstruktur sauber auf – nach bewährtem Framework, nicht nach Bauchgefühl. Tracking wird korrekt eingerichtet, damit du ab Tag 1 weißt, welche Klicks Kunden bringen.</p>
+        </li>
+        <li class="relative md:px-6 md:border-r md:border-[var(--line)]">
+          <div class="flex items-center gap-3">
+            <span class="step-num !bg-gold !text-ink !shadow-[0_6px_14px_-6px_rgba(251,188,12,.9)]">02</span>
+            <p class="font-head font-extrabold text-ink text-[1.0625rem] tracking-[-.01em]">Setup &amp; Launch</p>
+          </div>
+          <p class="mt-3.5 text-[.9375rem] text-muted">Du gehst schnell live. Denn das größte Risiko ist nicht ein kleiner Fehler – es ist, monatelang zu optimieren, ohne dass eine einzige Anzeige läuft. Wir starten mit klarem Setup, sammeln echte Daten aus deinem Markt und sehen, was wirklich Anfragen liefert.</p>
+        </li>
+        <li class="relative md:pl-6">
+          <div class="flex items-center gap-3">
+            <span class="step-num !bg-grass !shadow-[0_6px_14px_-6px_rgba(50,168,83,.9)]">03</span>
+            <p class="font-head font-extrabold text-ink text-[1.0625rem] tracking-[-.01em]">Optimierung &amp; Skalierung</p>
+          </div>
+          <p class="mt-3.5 text-[.9375rem] text-muted">Mit den ersten echten Daten beginnt die eigentliche Arbeit. Klare, einfache Regeln eliminieren Streuverluste, profitable Anzeigen werden skaliert – Schritt für Schritt entsteht ein System, das stabile Ergebnisse liefert, ohne dass du dich in Kennzahlen verlierst.</p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="rv mt-10 lg:mt-12 flex justify-center">
+      <a href="#termin" class="btn btn-primary lg">Jetzt Erstgespräch buchen</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 4 · VERTRAUENSLEISTE ══════════════ -->
+<section aria-label="Erfahrung in Zahlen" class="ink-bg noise relative overflow-hidden">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8 py-12 lg:py-14 relative">
+    <div class="flex justify-center mb-9">
+      <span class="gp-badge !bg-white/10 !border-white/15 !text-white"><span class="gp-dots"><i style="background:#577DBE"></i><i style="background:#E84436"></i><i style="background:#FBBC0C"></i><i style="background:#32A853"></i></span>Zertifizierter Google Partner</span>
+    </div>
+    <dl class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 text-center">
+      <div class="rv"><dt class="sr-only">Herkunft</dt><dd><p class="font-head text-[1.75rem] lg:text-[2.1rem] font-extrabold text-white leading-none tracking-[-.03em]">Ex-Google</p><p class="mt-2 text-[.8125rem] text-teal-300 kicker">Von innen gelernt</p></dd></div>
+      <div class="rv"><dt class="sr-only">Erfahrung</dt><dd><p class="font-head text-[1.75rem] lg:text-[2.1rem] font-extrabold text-white leading-none tracking-[-.03em]">7+ Jahre</p><p class="mt-2 text-[.8125rem] text-teal-300 kicker">Eigene Google-Ads-Agentur</p></dd></div>
+      <div class="rv"><dt class="sr-only">Verwaltetes Budget</dt><dd><p class="font-head text-[1.75rem] lg:text-[2.1rem] font-extrabold text-white leading-none tracking-[-.03em]">5 Mio. €</p><p class="mt-2 text-[.8125rem] text-teal-300 kicker">Werbebudget pro Jahr</p></dd></div>
+      <div class="rv"><dt class="sr-only">Kampagnen</dt><dd><p class="font-head text-[1.75rem] lg:text-[2.1rem] font-extrabold text-white leading-none tracking-[-.03em]">Tausende</p><p class="mt-2 text-[.8125rem] text-teal-300 kicker">Kampagnen, fast jede Branche</p></dd></div>
+    </dl>
+  </div>
+</section>
+
+
+<!-- ══════════════ 5 · TESTIMONIALS ══════════════ -->
+<section id="ergebnisse" class="relative py-20 sm:py-24 lg:py-28 bg-white">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8">
+
+    <div class="rv text-center max-w-2xl mx-auto">
+      <p class="kicker kicker-bar text-grass justify-center">Postgame</p>
+      <h2 class="mt-5 text-[1.85rem] sm:text-[2.35rem] lg:text-[2.7rem] font-extrabold text-ink text-balance">
+        Das sagen unsere <span class="accent text-teal-700">Lieblingskunden</span>
+      </h2>
+      <p class="mt-4 text-muted text-[1.0625rem]">Du kennst das Angebot – jetzt zählt der Beweis. Das berichten Selbstständige und Unternehmer, die mit mir ihren Google-Ads-Fahrplan aufgebaut haben.</p>
+    </div>
+
+    <div class="mt-12 lg:mt-14 grid md:grid-cols-3 gap-5 lg:gap-6">
+      <figure class="rv card card-hover p-7 lg:p-8 flex flex-col">
+        <span class="ph-tag self-start">Platzhalter</span>
+        <div class="mt-4 flex gap-0.5" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg>
+        </div>
+        <blockquote class="mt-4 text-[.9375rem] text-ink/85 flex-1">„Ich hatte vorher Anzeigen laufen, aber keine Ahnung, ob sie sich lohnen. Nach ein paar Wochen wusste ich endlich, welche Kampagne mir wirklich Anfragen bringt – und was ich dafür ausgebe. Zum ersten Mal fühlt sich Google Ads planbar an."</blockquote>
+        <figcaption class="mt-6 pt-5 border-t border-[var(--line)] flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-sky/50 text-ink font-head font-bold flex items-center justify-center text-[.875rem]" aria-hidden="true">VN</span>
+          <span><span class="block font-head font-bold text-ink text-[.9375rem]">Vorname N.</span><span class="block text-[.8125rem] text-muted">Branche / Ort</span></span>
+        </figcaption>
+      </figure>
+
+      <figure class="rv card card-hover p-7 lg:p-8 flex flex-col">
+        <span class="ph-tag self-start">Platzhalter</span>
+        <div class="mt-4 flex gap-0.5" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg>
+        </div>
+        <blockquote class="mt-4 text-[.9375rem] text-ink/85 flex-1">„Der wöchentliche Strategietalk war für mich der Gamechanger. Statt mich allein durch Tutorials zu quälen, hatte ich jemanden, der genau auf meinen Account schaut und mir sagt, was als Nächstes zu tun ist."</blockquote>
+        <figcaption class="mt-6 pt-5 border-t border-[var(--line)] flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-blush/55 text-ink font-head font-bold flex items-center justify-center text-[.875rem]" aria-hidden="true">VN</span>
+          <span><span class="block font-head font-bold text-ink text-[.9375rem]">Vorname N.</span><span class="block text-[.8125rem] text-muted">Branche / Ort</span></span>
+        </figcaption>
+      </figure>
+
+      <figure class="rv card card-hover p-7 lg:p-8 flex flex-col">
+        <span class="ph-tag self-start">Platzhalter</span>
+        <div class="mt-4 flex gap-0.5" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBC0C"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg>
+        </div>
+        <blockquote class="mt-4 text-[.9375rem] text-ink/85 flex-1">„Ich habe monatelang Budget verbrannt, bevor ich hier angefangen habe. Heute weiß ich, wo meine Anfragen herkommen, und muss mich nicht mehr auf Empfehlungen verlassen."</blockquote>
+        <figcaption class="mt-6 pt-5 border-t border-[var(--line)] flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-mint/60 text-ink font-head font-bold flex items-center justify-center text-[.875rem]" aria-hidden="true">VN</span>
+          <span><span class="block font-head font-bold text-ink text-[.9375rem]">Vorname N.</span><span class="block text-[.8125rem] text-muted">Branche / Ort</span></span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="rv mt-6 text-center text-[.8125rem] text-muted"><span class="ph-tag">Platzhalter</span> <span class="ml-1.5">Echte Bewertung &amp; Anzahl eintragen – die Zitate oben durch echte Kundenstimmen ersetzen.</span></p>
+
+    <div class="rv mt-8 lg:mt-10 flex justify-center">
+      <a href="#termin" class="btn btn-primary lg">Jetzt Erstgespräch buchen</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 6 · MEINE WERTE ══════════════ -->
+<section id="werte" class="ink-bg noise relative overflow-hidden py-20 sm:py-24 lg:py-28">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8 relative">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <div class="rv sm:col-span-2 lg:col-span-1 flex flex-col justify-center lg:pr-4">
+        <p class="kicker kicker-bar text-teal-300">Mindset</p>
+        <h2 class="mt-5 text-[1.85rem] sm:text-[2.35rem] lg:text-[2.7rem] font-extrabold text-white text-balance">Meine <span class="accent text-gold">Werte</span></h2>
+        <p class="mt-4 text-[1.0625rem] text-white/70">Meine Arbeit basiert auf klaren Prinzipien – weil nachhaltiger Erfolg bei Google Ads mehr braucht als kurzfristige Klick-Tricks.</p>
+      </div>
+
+      <article class="rv card-dark p-7 lg:p-8">
+        <span class="inline-flex w-11 h-11 rounded-xl items-center justify-center bg-white/[.07] ring-1 ring-inset ring-white/10 text-teal-300" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></span>
+        <h3 class="mt-5 text-lg lg:text-xl font-extrabold text-white">Klarheit statt Fachchinesisch</h3>
+        <p class="mt-2.5 text-[.9375rem] text-white/65">Ich breche komplexe Themen so weit herunter, bis du sie wirklich verstehst und selbst anwenden kannst. Kein Buzzword-Bingo.</p>
+      </article>
+
+      <article class="rv card-dark p-7 lg:p-8">
+        <span class="inline-flex w-11 h-11 rounded-xl items-center justify-center bg-white/[.07] ring-1 ring-inset ring-white/10 text-gold" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span>
+        <h3 class="mt-5 text-lg lg:text-xl font-extrabold text-white">Ergebnisse statt Aktionismus</h3>
+        <p class="mt-2.5 text-[.9375rem] text-white/65">Es geht nicht um möglichst viele Klicks, sondern um qualifizierte Anfragen, die dein Business wirklich voranbringen.</p>
+      </article>
+
+      <article class="rv card-dark p-7 lg:p-8">
+        <span class="inline-flex w-11 h-11 rounded-xl items-center justify-center bg-white/[.07] ring-1 ring-inset ring-white/10 text-mint" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M5 10.5V16c0 1.7 3.1 3 7 3s7-1.3 7-3v-5.5"/></svg></span>
+        <h3 class="mt-5 text-lg font-extrabold text-white lg:min-h-[3.5rem]">Bildung statt Abhängigkeit</h3>
+        <p class="mt-2.5 text-[.9375rem] text-white/65">Mein Ziel ist, dass du Google Ads am Ende selbst beherrschst – nicht, dass du dauerhaft von mir oder einer Agentur abhängig bleibst.</p>
+      </article>
+
+      <article class="rv card-dark p-7 lg:p-8">
+        <span class="inline-flex w-11 h-11 rounded-xl items-center justify-center bg-white/[.07] ring-1 ring-inset ring-white/10 text-blush" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 4 6.4v5.2c0 4.6 3.4 8.4 8 9.2 4.6-.8 8-4.6 8-9.2V6.4l-8-3.2Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <h3 class="mt-5 text-lg font-extrabold text-white lg:min-h-[3.5rem]">Ehrlichkeit statt Wunderversprechen</h3>
+        <p class="mt-2.5 text-[.9375rem] text-white/65">Ich verspreche keine Ergebnisse über Nacht. Ich zeige dir, was realistisch funktioniert und wie du systematisch dorthin kommst.</p>
+      </article>
+
+      <article class="rv card-dark p-7 lg:p-8">
+        <span class="inline-flex w-11 h-11 rounded-xl items-center justify-center bg-white/[.07] ring-1 ring-inset ring-white/10 text-royal" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20v-5M4 9V4M12 20v-8M12 7V4M20 20v-3M20 11V4"/><path d="M1.5 15h5M9.5 8h5M17.5 16h5"/></svg></span>
+        <h3 class="mt-5 text-lg font-extrabold text-white lg:min-h-[3.5rem]">Individuell statt Schema F</h3>
+        <p class="mt-2.5 text-[.9375rem] text-white/65">Dein Fahrplan wird auf dein Business, deine Zielgruppe und dein Budget abgestimmt – keine Copy-Paste-Strategie von der Stange.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 7 · ÜBER MICH ══════════════ -->
+<section id="ueber-mich" class="relative py-20 sm:py-24 lg:py-28 bg-white">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8">
+    <div class="grid lg:grid-cols-[.85fr,1fr] gap-10 lg:gap-14 items-start">
+
+      <div class="rv lg:sticky lg:top-24">
+        <div class="imgwrap aspect-[4/5] shadow-[var(--shadow-lg)]">
+          <img src="assets/portrait.jpg" alt="Christoph Pössnicker, Gründer des Adshelden Clubs" loading="lazy" width="800" height="1000" style="object-position:center 20%">
+          <span class="tint" aria-hidden="true"></span>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="chip">Ex-Google</span>
+          <span class="gp-badge"><span class="gp-dots"><i style="background:#577DBE"></i><i style="background:#E84436"></i><i style="background:#FBBC0C"></i><i style="background:#32A853"></i></span>Google Partner</span>
+          <span class="chip">Gründer Virtuelle Helden</span>
+        </div>
+      </div>
+
+      <div class="rv">
+        <p class="kicker kicker-bar text-teal-700">Meet me</p>
+        <h2 class="mt-5 text-[1.85rem] sm:text-[2.35rem] lg:text-[2.7rem] font-extrabold text-ink text-balance">Hi, ich bin <span class="accent text-teal-700">Christoph</span></h2>
+
+        <div class="mt-6 space-y-5 text-[1.0625rem] text-muted">
+          <p>Als ich mit Google Ads angefangen habe, habe ich schnell gemerkt, wie viel Geld man hier verbrennen kann, wenn man ohne System arbeitet. Genau das wollte ich verstehen – nicht oberflächlich, sondern bis ins Detail.</p>
+          <p>Diesen Weg bin ich konsequent gegangen: Ich habe direkt bei Google gearbeitet und dort gelernt, wie die Plattform wirklich tickt – nicht aus Tutorials, sondern von innen. Seit über 7 Jahren führe ich meine eigene Google-Ads-Agentur und verantworte heute über 5 Mio. € Werbebudget pro Jahr für meine Kunden.</p>
+          <p>In dieser Zeit habe ich eines immer wieder gesehen: Selbstständige und kleine Unternehmen scheitern bei Google Ads fast nie am Willen – sondern an fehlender Struktur. Sie klicken sich durch widersprüchliche Tutorials, verlieren sich in Einstellungen und geben Budget aus, ohne zu wissen, ob es sich lohnt.</p>
+          <p>Genau deshalb habe ich den Adshelden Club ins Leben gerufen. Ich nehme das, was in der Agentur täglich funktioniert, und mache es für dich verständlich, umsetzbar und planbar – Schritt für Schritt, in deinem eigenen Account, mit persönlicher Begleitung statt anonymem Videokurs.</p>
+          <p>Mir geht es nicht darum, dir Google Ads für immer abzunehmen. Mir geht es darum, dass du es selbst beherrschst und deine Kundengewinnung endlich in die eigene Hand nimmst.</p>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-dashed border-gold/70 bg-gold/10 p-5">
+          <span class="ph-tag">Platzhalter</span>
+          <p class="mt-2.5 text-[.9375rem] text-ink/75">1–2 persönliche Sätze ergänzen: warum dir das Thema am Herzen liegt, dein Warum, ein privates Detail (z. B. dein Basketball-Faible). Macht den Abschnitt noch nahbarer.</p>
+        </div>
+
+        <blockquote class="mt-8 pl-5 border-l-[3px] border-teal">
+          <p class="font-head text-lg lg:text-xl font-bold text-ink leading-snug">„Google Ads ist nicht kompliziert. Es wird nur kompliziert erklärt."</p>
+        </blockquote>
+
+        <div class="mt-8 flex items-center gap-4">
+          <span class="sig text-[2.4rem] leading-none text-ink/85">Christoph</span>
+          <span class="w-px h-9 bg-[var(--line)]" aria-hidden="true"></span>
+          <span class="text-[.875rem] text-muted"><strong class="text-ink font-semibold block">Christoph Pössnicker</strong>Gründer des Adshelden Clubs</span>
+        </div>
+
+        <a href="#termin" class="btn btn-primary lg mt-8">Jetzt Erstgespräch buchen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 8 · FAQ ══════════════ -->
+<section id="faq" class="relative py-20 sm:py-24 lg:py-28 bg-paper">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8">
+    <div class="grid lg:grid-cols-[.75fr,1fr] gap-10 lg:gap-16">
+
+      <div class="rv lg:sticky lg:top-24 self-start">
+        <p class="kicker kicker-bar text-coral">Letzte Zweifel</p>
+        <h2 class="mt-5 text-[1.85rem] sm:text-[2.35rem] lg:text-[2.7rem] font-extrabold text-ink text-balance">Häufig gestellte Fragen</h2>
+        <p class="mt-4 text-muted text-[1.0625rem]">Deine Frage ist nicht dabei? Stell sie mir direkt im kostenlosen Erstgespräch.</p>
+        <a href="#termin" class="btn btn-ghost mt-6">Frage im Erstgespräch klären
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="rv border-t border-[var(--line)]">
+        <details class="faq"><summary>Brauche ich Vorkenntnisse in Google Ads, um teilzunehmen?<span class="faq-ico" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-body text-[.9375rem]">Nein. Wir starten genau dort, wo du stehst. Wenn du noch nie eine Kampagne aufgesetzt hast, bekommst du alles von Grund auf verständlich erklärt. Wichtiger als Vorwissen ist, dass du bereit bist, in deinem eigenen Account umzusetzen.</div></details>
+        <details class="faq"><summary>Ich habe schon Anzeigen geschaltet, aber ohne klare Ergebnisse. Lohnt sich der Club trotzdem?<span class="faq-ico" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-body text-[.9375rem]">Ja – gerade dann. Sehr oft sind es wenige Stellschrauben (Kampagnenstruktur, Keywords, Tracking), die den Unterschied zwischen verbranntem Budget und planbaren Anfragen ausmachen. Wir analysieren, was bei dir aktuell blockiert, und bauen darauf einen sauberen Fahrplan auf.</div></details>
+        <details class="faq"><summary>Wie viel Zeit muss ich einplanen?<span class="faq-ico" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-body text-[.9375rem]">Plane pro Woche den 90-minütigen Strategietalk plus einige Stunden für die Umsetzung in deinem Account ein. Du bestimmst das Tempo – und weil du direkten Support hast, verlierst du keine Zeit mit Herumprobieren oder Feststecken.</div></details>
+        <details class="faq"><summary>Muss ich technisch fit sein oder alles selbst überwachen?<span class="faq-ico" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-body text-[.9375rem]">Nein. Genau die technischen Hürden – Tracking, Kampagnen-Setup, Einstellungen – gehen wir Schritt für Schritt gemeinsam durch, mit fertigen Vorlagen und Frameworks. Du musst kein Technik-Profi sein, um saubere Ergebnisse zu bekommen.</div></details>
+        <details class="faq"><summary>In welcher Zeit kann ich Ergebnisse erwarten?<span class="faq-ico" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-body text-[.9375rem]">Google Ads ist kein Glücksspiel, aber auch kein Knopfdruck. In den ersten Wochen bauen wir dein Fundament sauber auf, danach optimieren wir datenbasiert. Ziel ist ein stabiles, planbares Setup, das dir kontinuierlich qualifizierte Anfragen bringt – statt kurzer Strohfeuer.</div></details>
+        <details class="faq"><summary>Was kostet die Teilnahme am Adshelden Club?<span class="faq-ico" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-body text-[.9375rem]">Der Adshelden Club ist eine Investition in einen Kanal, der dir dauerhaft Kunden bringt. Es gibt zwei Stufen – vom 12-Wochen-Training bis zur intensiven Done-with-you-Begleitung über mehrere Monate. Welche Variante zu deinem Ziel und deinem Budget passt, klären wir gemeinsam im kostenlosen Erstgespräch.</div></details>
+        <details class="faq"><summary>Woran erkenne ich, ob der Club zu mir passt?<span class="faq-ico" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><div class="faq-body text-[.9375rem]">Am besten im persönlichen Gespräch. Im kostenlosen Erstgespräch schauen wir uns deine Situation an und du erfährst ehrlich, ob und wie ich dir helfen kann – ganz ohne Druck.</div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 9 · ABSCHLUSS-CTA ══════════════ -->
+<section id="termin" class="cta-bg noise relative overflow-hidden py-20 sm:py-24 lg:py-28">
+  <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <svg class="absolute left-1/2 -translate-x-1/2 -bottom-52 w-[620px] h-[620px] opacity-[.09]" viewBox="0 0 200 200" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round">
+      <circle cx="100" cy="100" r="92"/>
+      <line x1="100" y1="8" x2="100" y2="192"/>
+      <line x1="8" y1="100" x2="192" y2="100"/>
+      <path d="M100 8 Q34 100 100 192"/>
+      <path d="M100 8 Q166 100 100 192"/>
+    </svg>
+  </div>
+
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8 relative">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="rv kicker kicker-bar text-teal-300 justify-center">Der letzte Spielzug</p>
+      <h2 class="rv mt-6 text-[1.95rem] sm:text-[2.5rem] lg:text-[3rem] font-extrabold text-white text-balance">Bereit, deine Kundengewinnung <span class="accent text-gold">planbar</span> zu machen?</h2>
+      <p class="rv mt-5 text-[1.0625rem] text-white/72">Buche dein kostenloses Erstgespräch. Wir schauen uns deine Situation an und du bekommst einen ehrlichen Blick darauf, wie Google Ads für dich funktionieren kann.</p>
+
+      <!-- BOOKING_URL: hier deine echte Buchungsseite eintragen -->
+      <div class="rv mt-9">
+        <a href="https://adshelden.de/erstgespraech" class="btn btn-on-dark">Jetzt kostenloses Erstgespräch buchen
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="mt-3.5 text-[.8125rem] text-white/55">100&nbsp;% kostenfrei &amp; unverbindlich</p>
+      </div>
+
+      <ul class="rv mt-10 grid sm:grid-cols-3 gap-3 text-left">
+        <li class="flex items-start gap-2.5 rounded-2xl bg-white/[.055] border border-white/10 px-4 py-3.5"><svg class="mt-0.5 shrink-0 text-teal-300" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="text-[.875rem] text-white/80">Persönliche Analyse deiner aktuellen Situation</span></li>
+        <li class="flex items-start gap-2.5 rounded-2xl bg-white/[.055] border border-white/10 px-4 py-3.5"><svg class="mt-0.5 shrink-0 text-teal-300" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="text-[.875rem] text-white/80">Individuelles Feedback und konkrete nächste Schritte</span></li>
+        <li class="flex items-start gap-2.5 rounded-2xl bg-white/[.055] border border-white/10 px-4 py-3.5"><svg class="mt-0.5 shrink-0 text-teal-300" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="text-[.875rem] text-white/80">Auch ohne Zusammenarbeit: Klarheit über deinen nächsten Schritt</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 10 · FOOTER ══════════════ -->
+<footer class="bg-ink border-t border-white/10">
+  <div class="max-w-shell mx-auto px-5 sm:px-7 lg:px-8 py-12">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-7">
+      <a href="#hero" class="self-start rounded-xl focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-teal focus-visible:outline-offset-4" aria-label="Adshelden Club – nach oben">
+        <img src="assets/logo-white.svg" alt="Adshelden Club" class="h-[30px] w-auto" width="129" height="30">
+      </a>
+      <nav class="flex flex-wrap items-center gap-x-6 gap-y-2" aria-label="Footer-Navigation">
+        <a href="#fuer-wen"   class="text-[.875rem] text-white/60 hover:text-white link-u">Für wen</a>
+        <a href="#inhalte"    class="text-[.875rem] text-white/60 hover:text-white link-u">So funktioniert's</a>
+        <a href="#ergebnisse" class="text-[.875rem] text-white/60 hover:text-white link-u">Ergebnisse</a>
+        <a href="#ueber-mich" class="text-[.875rem] text-white/60 hover:text-white link-u">Über mich</a>
+        <a href="#faq"        class="text-[.875rem] text-white/60 hover:text-white link-u">FAQ</a>
+        <a href="magazin.html" class="text-[.875rem] text-white/60 hover:text-white link-u">Magazin</a>
+      </nav>
+    </div>
+    <div class="mt-10 pt-7 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <p class="text-[.8125rem] text-white/45">© 2026 Adshelden Club. Alle Rechte vorbehalten.</p>
+      <nav class="flex items-center gap-5" aria-label="Rechtliches">
+        <a href="impressum.html"   class="text-[.8125rem] text-white/60 hover:text-white link-u">Impressum</a>
+        <a href="datenschutz.html" class="text-[.8125rem] text-white/60 hover:text-white link-u">Datenschutz</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+
+<div id="stickycta" class="sticky-cta hidden-down lg:hidden fixed bottom-0 inset-x-0 z-40 p-3 bg-paper/92 backdrop-blur-xl border-t border-[var(--line)]">
+  <a href="#termin" class="btn btn-primary w-full !py-3.5">Kostenloses Erstgespräch buchen</a>
+</div>
+
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var header = document.getElementById('header');
+  var sticky = document.getElementById('stickycta');
+  var hero   = document.getElementById('hero');
+
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    header.classList.toggle('scrolled', y > 12);
+    if (sticky){
+      var past = y > (hero ? hero.offsetHeight * 0.75 : 500);
+      var atEnd = (y + window.innerHeight) > (document.body.scrollHeight - 320);
+      sticky.classList.toggle('hidden-down', !past || atEnd);
+    }
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+
+  var btn = document.getElementById('menubtn'), menu = document.getElementById('mobilenav');
+  var iOpen = document.getElementById('ico-open'), iClose = document.getElementById('ico-close');
+  function setMenu(open){
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    iOpen.hidden = open; iClose.hidden = !open;
+    if (open){ menu.hidden = false; menu.classList.add('closing'); requestAnimationFrame(function(){ menu.classList.remove('closing'); }); }
+    else { menu.classList.add('closing'); window.setTimeout(function(){ if (btn.getAttribute('aria-expanded') === 'false') menu.hidden = true; }, reduce ? 0 : 260); }
+  }
+  btn.addEventListener('click', function(){ setMenu(btn.getAttribute('aria-expanded') !== 'true'); });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true'){ setMenu(false); btn.focus(); } });
+
+  var items = document.querySelectorAll('.rv');
+  function revealInView(){
+    items.forEach(function(el){
+      if (el.classList.contains('is-in')) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-in');
+    });
+  }
+  if (reduce || !('IntersectionObserver' in window)){
+    items.forEach(function(el){ el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var siblings = Array.prototype.slice.call(el.parentElement.children).filter(function(n){ return n.classList.contains('rv'); });
+        var i = Math.min(siblings.indexOf(el), 5);
+        el.style.transitionDelay = (i > 0 ? i * 70 : 0) + 'ms';
+        el.classList.add('is-in'); io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach(function(el){ io.observe(el); });
+    revealInView();
+    window.addEventListener('load', revealInView);
+    window.addEventListener('hashchange', function(){ window.setTimeout(revealInView, 60); });
+    window.setTimeout(revealInView, 900);
+  }
+
+  var faqs = document.querySelectorAll('details.faq');
+  faqs.forEach(function(d){ d.addEventListener('toggle', function(){ if (!d.open) return; faqs.forEach(function(o){ if (o !== d) o.open = false; }); }); });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Nicht deployen: große Originale & lokale Arbeitsdateien
+Claude.dmg
+brand_assets/
+temporary screenshots/
+scratch_thumbs/
+.DS_Store
+tasks/
