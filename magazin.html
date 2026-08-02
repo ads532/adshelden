@@ -19,7 +19,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,600&family=Inter:wght@400;500;600;700&family=Oswald:wght@600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = { theme: { extend: {
@@ -35,7 +35,8 @@ tailwind.config = { theme: { extend: {
     --shadow-teal:0 10px 26px -10px rgba(0,177,183,.55); }
   body{ font-family:'Inter',sans-serif; color:#16243D; background:#F6F8F9; -webkit-font-smoothing:antialiased; line-height:1.7; }
   h1,h2,h3{ font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-.03em; line-height:1.1; }
-  .accent{ font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:600; }
+  .accent{ font-family:inherit; font-weight:800; letter-spacing:-.03em; position:relative; white-space:nowrap; }
+  .accent::after{ content:''; position:absolute; left:.02em; right:.02em; bottom:-.1em; height:.11em; border-radius:999px; background:currentColor; opacity:.28; }
   ::selection{ background:#00B1B7; color:#fff; }
   .kicker{ font-family:'Oswald',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.14em; font-size:.8125rem; display:inline-flex; align-items:center; gap:.7rem; }
   .kicker::before{ content:''; width:26px; height:3px; border-radius:2px; background:currentColor; }
@@ -242,6 +243,55 @@ tailwind.config = { theme: { extend: {
       // Demo-Modus ohne angebundenen Dienst
       showSuccess();
     }
+  });
+})();
+</script>
+
+<!-- ══════════════ COOKIE-CONSENT ══════════════ -->
+<style>
+  #chCookie{position:fixed;bottom:0;left:0;right:0;z-index:80;padding:12px}
+  #chCookie[hidden]{display:none}
+  #chCookie .ch-card{max-width:1080px;margin:0 auto;background:#fff;border:1px solid rgba(22,36,61,.12);border-radius:18px;box-shadow:0 22px 54px -20px rgba(22,36,61,.4);padding:20px 22px;display:flex;flex-direction:column;gap:16px;animation:chUp .4s cubic-bezier(.22,1.2,.36,1) both}
+  @keyframes chUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @media(min-width:760px){#chCookie .ch-card{flex-direction:row;align-items:center;gap:26px;padding:22px 26px}}
+  #chCookie h4{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;color:#16243D;font-size:.98rem;margin:0;letter-spacing:-.01em}
+  #chCookie p{font-family:'Inter',system-ui,sans-serif;color:#5D6B7F;font-size:.85rem;line-height:1.6;margin:6px 0 0}
+  #chCookie a{color:#0b7f84;text-decoration:underline;text-underline-offset:2px}
+  #chCookie .ch-btns{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+  @media(min-width:520px){#chCookie .ch-btns{flex-direction:row}}
+  #chCookie button{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:700;border-radius:12px;padding:12px 20px;font-size:.9rem;cursor:pointer;border:1px solid transparent;transition:transform .2s ease,background-color .2s ease,box-shadow .2s ease;white-space:nowrap}
+  #chCookie button:focus-visible{outline:3px solid #00B1B7;outline-offset:2px}
+  #chCookie .ch-sec{background:#fff;color:#16243D;border-color:rgba(22,36,61,.14)}
+  #chCookie .ch-sec:hover{background:#F6F8F9}
+  #chCookie .ch-pri{background:#00B1B7;color:#fff;box-shadow:0 8px 20px -8px rgba(0,177,183,.6)}
+  #chCookie .ch-pri:hover{background:#049aa0;transform:translateY(-1px)}
+  @media(prefers-reduced-motion:reduce){#chCookie .ch-card{animation:none}#chCookie button{transition:none}}
+</style>
+<div id="chCookie" hidden role="dialog" aria-label="Hinweis zu Datenschutz und Cookies">
+  <div class="ch-card">
+    <div style="flex:1">
+      <h4>Datenschutz &amp; Cookies</h4>
+      <p>Wir verwenden nur technisch notwendige Elemente. Mit &bdquo;Alle akzeptieren&ldquo; erlaubst du zusätzlich externe Schriftarten sowie künftige Marketing- und Statistik-Tools. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+    </div>
+    <div class="ch-btns">
+      <button type="button" class="ch-sec" data-consent="essential">Nur notwendige</button>
+      <button type="button" class="ch-pri" data-consent="all">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='adshelden_consent',box=document.getElementById('chCookie');
+  try{ if(localStorage.getItem(KEY)) return; }catch(e){}
+  box.hidden=false;
+  box.querySelectorAll('[data-consent]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var lvl=b.getAttribute('data-consent');
+      try{ localStorage.setItem(KEY, JSON.stringify({level:lvl,ts:Date.now()})); }catch(e){}
+      box.hidden=true;
+      /* TODO: Marketing-/Statistik-Tags (z. B. Google Ads Tag, GA4) NUR laden, wenn lvl === 'all'. */
+      window.dispatchEvent(new CustomEvent('adshelden:consent',{detail:lvl}));
+    });
   });
 })();
 </script>
