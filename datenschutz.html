@@ -147,19 +147,46 @@ tailwind.config={theme:{extend:{colors:{ink:{DEFAULT:'#16243D'},teal:{DEFAULT:'#
 <script>
 (function(){
   var KEY='adshelden_consent',box=document.getElementById('chCookie');
-  try{ if(localStorage.getItem(KEY)) return; }catch(e){}
-  box.hidden=false;
   box.querySelectorAll('[data-consent]').forEach(function(b){
     b.addEventListener('click',function(){
       var lvl=b.getAttribute('data-consent');
       try{ localStorage.setItem(KEY, JSON.stringify({level:lvl,ts:Date.now()})); }catch(e){}
       box.hidden=true;
-      /* TODO: Marketing-/Statistik-Tags (z. B. Google Ads Tag, GA4) NUR laden, wenn lvl === 'all'. */
       window.dispatchEvent(new CustomEvent('adshelden:consent',{detail:lvl}));
     });
   });
+  document.querySelectorAll('[data-cookie-reopen]').forEach(function(el){
+    el.addEventListener('click',function(e){ e.preventDefault(); box.hidden=false; });
+  });
+  var chosen=false; try{ chosen=!!localStorage.getItem(KEY); }catch(e){}
+  if(!chosen) box.hidden=false;
 })();
 </script>
 
+
+<style>
+  #toTop{position:fixed;right:16px;bottom:24px;z-index:45;width:46px;height:46px;border-radius:14px;
+    background:#16243D;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;
+    box-shadow:0 12px 28px -10px rgba(22,36,61,.6);opacity:0;transform:translateY(10px);pointer-events:none;
+    transition:opacity .3s ease,transform .3s cubic-bezier(.22,1.2,.36,1),background-color .2s ease;}
+  #toTop.show{opacity:1;transform:none;pointer-events:auto;}
+  #toTop:hover{background:#00B1B7;transform:translateY(-3px);}
+  #toTop:focus-visible{outline:3px solid #00B1B7;outline-offset:3px;}
+  @media(min-width:1024px){#toTop{right:24px;bottom:28px;}}
+</style>
+<button id="toTop" type="button" aria-label="Nach oben scrollen">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<script>
+(function(){
+  var b=document.getElementById('toTop');
+  function upd(){ ((window.scrollY||document.documentElement.scrollTop)>600) ? b.classList.add('show') : b.classList.remove('show'); }
+  upd(); window.addEventListener('scroll',upd,{passive:true});
+  b.addEventListener('click',function(){
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  });
+})();
+</script>
 </body>
 </html>
